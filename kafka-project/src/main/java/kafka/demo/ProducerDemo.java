@@ -1,18 +1,15 @@
-package com.github.hicham.kafka.demo;
+package kafka.demo;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-public class ConsumerDemo {
+public class ProducerDemo {
     public static void main(String[] args) {
-        String bootstrapServers="172.17.107.6:9092";
-        Logger logger = LoggerFactory.getLogger(ConsumerDemo.class);
+        String bootstrapServers="172.17.204.78:9092";
         //create producer properties
         Properties prop=new Properties();
         prop.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,bootstrapServers);

@@ -1,4 +1,4 @@
-package com.github.hicham.kafka.twitter;
+package kafka.twitter;
 
 import com.google.common.collect.Lists;
 import com.twitter.hbc.ClientBuilder;
@@ -22,11 +22,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class TwitterProducer {
-<<<<<<< HEAD
-    List<String> terms = Lists.newArrayList("bitcoin");
-=======
+
     List<String> terms = Lists.newArrayList("bitcoin","usa","canada","sport");
->>>>>>> f02aaf9... Kafka+Twitter API
+
     String consumerKey="LxzEJXD0dvqBOGf4oVdSX6MkD";
     String consumerSecret="ENxpug1a1a3cGZ7WQM1ba60EutqOhrRQSZZvmRnysXkRqPXrgA";
     String token="1274875904913633281-HG6CC5HhqzMYLlMgJ8U89SG4wnn8oe";
@@ -106,13 +104,11 @@ public class TwitterProducer {
         prop.setProperty(ProducerConfig.ACKS_CONFIG,"all");
         prop.setProperty(ProducerConfig.RETRIES_CONFIG,""+Integer.MAX_VALUE);
         prop.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION,"5");
-<<<<<<< HEAD
-=======
+
         //high throughput producer (at the expense of latency and cpu usage)
         prop.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG,"snappy");
         prop.setProperty(ProducerConfig.LINGER_MS_CONFIG,"20");
         prop.setProperty(ProducerConfig.BATCH_SIZE_CONFIG,""+(32*1024));
->>>>>>> f02aaf9... Kafka+Twitter API
         //create producer
         KafkaProducer<String,String> producer=new KafkaProducer<String, String>(prop);
         return producer;

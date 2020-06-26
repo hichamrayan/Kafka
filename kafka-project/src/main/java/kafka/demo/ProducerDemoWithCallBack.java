@@ -1,4 +1,4 @@
-package com.github.hicham.kafka.demo;
+package kafka.demo;
 
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;

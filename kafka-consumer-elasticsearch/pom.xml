@@ -2,22 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>kafka-gam</artifactId>
+        <groupId>com.github.hicham</groupId>
+        <version>1.0</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.hicham</groupId>
-    <artifactId>kafka-gam</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0</version>
-    <modules>
-        <module>kafka-project</module>
-        <module>kafka-producer-twitter</module>
-        <module>kafka-consumer-elasticsearch</module>
-    </modules>
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
+    <artifactId>kafka-consumer-elasticsearch</artifactId>
 <dependencies>
+    <dependency>
+        <groupId>org.elasticsearch.client</groupId>
+        <artifactId>elasticsearch-rest-high-level-client</artifactId>
+        <version>6.4.0</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
     <dependency>
         <groupId>org.apache.kafka</groupId>
@@ -31,11 +29,10 @@
         <version>1.7.30</version>
     </dependency>
     <dependency>
-        <groupId>com.twitter</groupId>
-        <artifactId>hbc-core</artifactId> <!-- or hbc-twitter4j -->
-        <version>2.2.0</version> <!-- or whatever the latest version is -->
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>4.5.10</version>
     </dependency>
-
 </dependencies>
 
 </project>
