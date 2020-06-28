@@ -93,7 +93,7 @@ public class TwitterProducer {
         return hosebirdClient;
     }
     private KafkaProducer<String,String> createKafkaProducer(){
-        String bootstrapServers="172.17.204.78:9092";
+        String bootstrapServers="192.168.141.248:9092";
         //create producer properties
         Properties prop=new Properties();
         prop.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,bootstrapServers);
