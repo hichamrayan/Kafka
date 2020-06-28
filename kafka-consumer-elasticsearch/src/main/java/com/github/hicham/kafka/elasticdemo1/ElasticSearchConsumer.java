@@ -1,5 +1,6 @@
 package com.github.hicham.kafka.elasticdemo1;
 
+import com.google.gson.JsonParser;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -58,10 +59,17 @@ public class ElasticSearchConsumer{
         prop.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         prop.setProperty(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         prop.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        prop.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
+        prop.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "10");
         //create consumer
         KafkaConsumer<String,String> consumer=new KafkaConsumer<String, String>(prop);
         consumer.subscribe(Arrays.asList(topic));
         return consumer;
+    }
+   private static JsonParser jsonParser=new JsonParser();
+    private static String extractIdFromTweet(String tweetJson){
+
+        return jsonParser.parse(tweetJson).getAsJsonObject().get("id_str").getAsString();
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -70,15 +78,21 @@ public class ElasticSearchConsumer{
         KafkaConsumer<String, String> consumer = createConsumer("twitter_tweets");
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+            logger.info("received records: "+records.count());
             for (ConsumerRecord record : records) {
                 logger.info(record.value().toString());
-                IndexRequest indexRequest = new IndexRequest("twitter","tweets")
+                //String id=record.topic()+"_"+record.partition()+"_"+record.offset();
+                String id=extractIdFromTweet(record.value().toString());
+                IndexRequest indexRequest = new IndexRequest("twitter","tweets",id)
                 .source(record.value(), XContentType.JSON);
                 IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
                 logger.info(indexResponse.getId());
-                Thread.sleep(1000);
             }
-
+            logger.info("commiting data");
+            consumer.commitSync();
+            logger.info("data commited");
+            Thread.sleep(1000);
         }
+
     }
 }
